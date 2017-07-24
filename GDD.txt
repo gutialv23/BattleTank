@@ -1,0 +1,36 @@
+TANK GAMES
+
+#Controles
+ - Movimiento de la cabina joystick derecho o ratón (arriba y abajo el cañón, izquierda y derecha la cabina)
+ - Movimiento del tanque joystick izquierdo o flechas (WASD)
+ - Disparar gatillo
+
+#Feedback
+ - Recibir daño (Golpe, disparo...)
+ - Disparo efectivo
+
+#Características de interés
+ - Proyectiles no instantáneos, tardan en recorrer distancia.
+ - Movimiento rápido pero giro lento.
+ - No se puede girar en el sitio, es necesario avanzar y retroceder para girar.
+ - Diferentes modos de zoom
+ - Elegir la zona del terreno donde disparar y no el ángulo con el que disparar
+ - Munición infinita?
+ - La vida del tanque se recupera con el tiempo?
+ - Cooldown tras disparar.
+
+#Sonidos
+ - Disparar (tu y los otros tanques)
+ - Explosión de la bala
+ - Daño (al tanque y a ti mismo)
+ - Sonido ambiente
+ - Sonido cuando la IA te detecta
+ - Movimiento de la torreta, de la cabina y del tanque.
+ - Solo motor cuando está quieto.
+ - Cuando se termina el cooldown (recarga)
+
+#Condiciones de victoria y derrota
+ - Victoria: Cuando destruyes todos los tanques
+ - Derrota: Si pierdes la vida.
+ - Sistema de scores en función de lo que tardes en matarlos y la vida que te quede.
+
