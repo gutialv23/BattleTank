@@ -21,18 +21,26 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+private:
 
+	/*	Returns our controlled Tank if found */
 	ATank *GetControlledTank() const;
 
-private:
 	/*	Start the tank moving the barrel so that a shot
 		would hit where the crosshair intersects the world  */
 	void AimTowardsCrosshair();
 
-	/* Get world location of linetrace through crosshair, true if hits landscape */
+	/*	Get world location of linetrace through crosshair, true if hits landscape */
 	bool GetSightRayHitLocation( FVector &OutHitLocation ) const;
 
-	// Possible distance from where we can shoot
-	const int AimDistance = 10000;
+	/*	Possible distance from where we can shoot */
+	const int AimDistance = 100000;
 	
+public:
+	UPROPERTY(EditAnywhere)
+	float CrosshairXLocation = 0.5;
+
+	UPROPERTY(EditAnywhere)
+	float CrosshairYLocation = 0.33333;
+
 };

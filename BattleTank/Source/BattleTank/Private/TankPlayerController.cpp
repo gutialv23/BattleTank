@@ -46,13 +46,21 @@ void ATankPlayerController::AimTowardsCrosshair()
 bool ATankPlayerController::GetSightRayHitLocation( FVector &OutHitLocation) const
 {
 	FHitResult Hit;
+	
 
-	FVector CameraLocation = PlayerCameraManager->GetCameraLocation();
-	FRotator CameraRotation = PlayerCameraManager->GetCameraRotation();
+	// Viewport Size
+	int32 ViewportSizeX, ViewportSizeY;
+	GetViewportSize(ViewportSizeX, ViewportSizeY);
 
+	// Crosshair World Location
+	FVector CrosshairWorldLocation, CrosshairWorldDirection;
+	DeprojectScreenPositionToWorld(ViewportSizeX * CrosshairXLocation, ViewportSizeY * CrosshairYLocation, CrosshairWorldLocation, CrosshairWorldDirection);
+	
+
+	// LineTracing to find if we hit something
 	FCollisionQueryParams QueryParams(FName(TEXT("")), false, GetPawn());
 
-	GetWorld()->LineTraceSingleByChannel(Hit, CameraLocation, CameraLocation + CameraRotation.Vector() * AimDistance, ECollisionChannel::ECC_Camera, QueryParams);
+	GetWorld()->LineTraceSingleByChannel(Hit, CrosshairWorldLocation, CrosshairWorldLocation + CrosshairWorldDirection * AimDistance, ECollisionChannel::ECC_Camera, QueryParams);
 
 	if (Hit.GetActor() != nullptr)
 	{
