@@ -24,22 +24,24 @@ void ATankPlayerController::Tick(float DeltaTime)
 	AimTowardsCrosshair();
 }
 
+
 ATank* ATankPlayerController::GetControlledTank() const
 {
 	return Cast<ATank>(GetPawn());
 }
 
+
 void ATankPlayerController::AimTowardsCrosshair()
 {
-
 	if (GetControlledTank() == nullptr) { return; }
+
 
 	FVector HitLocation; // Out parameter
 
 	if (GetSightRayHitLocation(HitLocation))
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Aiming to this location: %s"), *HitLocation.ToString());
 		// Move the turret to the place where we should hit
+		GetControlledTank()->AimAt(HitLocation);
 	}
 }
 
@@ -59,8 +61,7 @@ bool ATankPlayerController::GetSightRayHitLocation( FVector &OutHitLocation) con
 
 	// LineTracing to find if we hit something
 	FCollisionQueryParams QueryParams(FName(TEXT("")), false, GetPawn());
-
-	GetWorld()->LineTraceSingleByChannel(Hit, CrosshairWorldLocation, CrosshairWorldLocation + CrosshairWorldDirection * AimDistance, ECollisionChannel::ECC_Camera, QueryParams);
+	GetWorld()->LineTraceSingleByChannel(Hit, CrosshairWorldLocation, CrosshairWorldLocation + CrosshairWorldDirection * ShootDistance, ECollisionChannel::ECC_Visibility, QueryParams);
 
 	if (Hit.GetActor() != nullptr)
 	{
@@ -68,5 +69,6 @@ bool ATankPlayerController::GetSightRayHitLocation( FVector &OutHitLocation) con
 		return true;
 	}
 
+	OutHitLocation = FVector(0.f);
 	return false;
 }

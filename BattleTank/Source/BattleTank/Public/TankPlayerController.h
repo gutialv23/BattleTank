@@ -32,15 +32,16 @@ private:
 
 	/*	Get world location of linetrace through crosshair, true if hits landscape */
 	bool GetSightRayHitLocation( FVector &OutHitLocation ) const;
-
-	/*	Possible distance from where we can shoot */
-	const int AimDistance = 100000;
-	
+		
 public:
 	UPROPERTY(EditAnywhere)
-	float CrosshairXLocation = 0.5;
+	float CrosshairXLocation = 0.5f;
 
 	UPROPERTY(EditAnywhere)
-	float CrosshairYLocation = 0.33333;
+	float CrosshairYLocation = 0.33333f;
+
+	/*	Possible distance from where we can shoot */
+	UPROPERTY(EditAnywhere)
+	float ShootDistance = 100000.f;
 
 };
