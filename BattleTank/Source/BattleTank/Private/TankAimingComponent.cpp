@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "BattleTank.h"
+#include "TankBarrel.h"
 #include "TankAimingComponent.h"
 
 
@@ -14,7 +15,7 @@ UTankAimingComponent::UTankAimingComponent()
 	// ...
 }
 
-void UTankAimingComponent::SetBarrelReference(UStaticMeshComponent *BarrelToSet)
+void UTankAimingComponent::SetBarrelReference(UTankBarrel *BarrelToSet)
 {
 	Barrel = BarrelToSet;
 }
@@ -49,11 +50,13 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 	FRotator AimRotator = AimDirection.Rotation();
 	BarrelRotator.Pitch = AimRotator.Pitch;
 
-	Barrel->SetWorldRotation(BarrelRotator);
+	Barrel->Elevate(5.f); //TODO remove magic number
+
+	// Barrel->SetWorldRotation(BarrelRotator);
 
 	// Calculate de difference between this and the Aim Direction (Pitch)
 	// Rotate the Barrel to aim at that direction
 
-	UE_LOG(LogTemp, Warning, TEXT("%s firing with this Rotation %s to this direcction %s"), *GetOwner()->GetName(), *BarrelRotator.ToString(), *AimDirection.ToString())
+	//	UE_LOG(LogTemp, Warning, TEXT("%s firing with this Rotation %s to this direcction %s"), *GetOwner()->GetName(), *BarrelRotator.ToString(), *AimDirection.ToString())
 
 }
