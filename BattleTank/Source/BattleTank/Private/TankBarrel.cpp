@@ -7,9 +7,9 @@
 
 
 
-void UTankBarrel::Elevate(float DegreesPerSecond)
+void UTankBarrel::Elevate(float RelativeSpeed)
 {
 	// Move the barrel the reight amount this frame
 
-	UE_LOG(LogTemp, Warning, TEXT("Barrel elevate called with %f degrees"), DegreesPerSecond)
+	//UE_LOG(LogTemp, Warning, TEXT("%f: Barrel elevate called with %f degrees"), GetWorld()->GetTimeSeconds(), RelativeSpeed)
 }
