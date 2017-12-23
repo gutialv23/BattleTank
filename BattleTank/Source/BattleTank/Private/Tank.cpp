@@ -6,38 +6,42 @@
 
 
 // Sets default values
-ATank::ATank()
+ATank::ATank ()
 {
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = false;
+	PrimaryActorTick.bCanEverTick = false ;
 
-	TankAimingComponent = CreateDefaultSubobject<UTankAimingComponent>(FName("AimingComponent"));
+	TankAimingComponent = CreateDefaultSubobject< UTankAimingComponent >( FName( "AimingComponent" ) ) ;
 
 }
 
 
-void ATank::SetBarrelReference(UTankBarrel *BarrelToSet)
+void ATank::SetBarrelReference ( UTankBarrel *BarrelToSet )
 {
-	TankAimingComponent->SetBarrelReference(BarrelToSet);
+	TankAimingComponent->SetBarrelReference( BarrelToSet ) ;
 }
 
+void ATank::SetTurretReference ( UTankTurret *TurretToSet )
+{
+	TankAimingComponent->SetTurretReference( TurretToSet ) ;
+}
 
 // Called when the game starts or when spawned
-void ATank::BeginPlay()
+void ATank::BeginPlay ()
 {
-	Super::BeginPlay();
+	Super::BeginPlay() ;
 	
 }
 
 // Called to bind functionality to input
-void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+void ATank::SetupPlayerInputComponent ( UInputComponent* PlayerInputComponent )
 {
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
+	Super::SetupPlayerInputComponent( PlayerInputComponent ) ;
 
 }
 
-void ATank::AimAt(FVector Location) const
+void ATank::AimAt ( FVector Location ) const
 {
-	TankAimingComponent->AimAt(Location, LaunchSpeed);
+	TankAimingComponent->AimAt( Location , LaunchSpeed ) ;
 }
 

@@ -6,8 +6,9 @@
 #include "Tank.generated.h"
 
 // Forward declarations
-class UTankAimingComponent;
-class UTankBarrel;
+class UTankAimingComponent ;
+class UTankBarrel ;
+class UTankTurret ;
 
 UCLASS()
 class BATTLETANK_API ATank : public APawn
@@ -16,25 +17,28 @@ class BATTLETANK_API ATank : public APawn
 
 public:
 	// Sets default values for this pawn's properties
-	ATank();
+	ATank () ;
 
-	UFUNCTION(BlueprintCallable)
-	void SetBarrelReference(UTankBarrel *BarrelToSet);
+	UFUNCTION( BlueprintCallable )
+	void SetBarrelReference ( UTankBarrel *BarrelToSet ) ;
+	
+	UFUNCTION( BlueprintCallable )
+	void SetTurretReference ( UTankTurret *TurretToSet ) ;
 	
 protected:
 	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
+	virtual void BeginPlay () override ;
 
-	UTankAimingComponent *TankAimingComponent = nullptr;
+	UTankAimingComponent *TankAimingComponent = nullptr ;
 
 public:	
 	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	virtual void SetupPlayerInputComponent ( class UInputComponent* PlayerInputComponent ) override ;
 
-	void AimAt(FVector Location) const;
+	void AimAt ( FVector Location ) const ;
 
 private:
 
-	UPROPERTY(EditAnywhere, Category = Firing)
-	float LaunchSpeed = 100000.f;			// TODO find sensible default value
+	UPROPERTY( EditAnywhere , Category = Firing )
+	float LaunchSpeed = 100000.f ;			// TODO find sensible default value
 };
