@@ -15,17 +15,6 @@ ATank::ATank ()
 
 }
 
-
-void ATank::SetBarrelReference ( UTankBarrel *BarrelToSet )
-{
-	TankAimingComponent->SetBarrelReference( BarrelToSet ) ;
-}
-
-void ATank::SetTurretReference ( UTankTurret *TurretToSet )
-{
-	TankAimingComponent->SetTurretReference( TurretToSet ) ;
-}
-
 // Called when the game starts or when spawned
 void ATank::BeginPlay ()
 {
@@ -38,6 +27,21 @@ void ATank::SetupPlayerInputComponent ( UInputComponent* PlayerInputComponent )
 {
 	Super::SetupPlayerInputComponent( PlayerInputComponent ) ;
 
+}
+
+void ATank::SetBarrelReference ( UTankBarrel *BarrelToSet )
+{
+	TankAimingComponent->SetBarrelReference( BarrelToSet ) ;
+}
+
+void ATank::SetTurretReference ( UTankTurret *TurretToSet )
+{
+	TankAimingComponent->SetTurretReference( TurretToSet ) ;
+}
+
+void ATank::Fire () const
+{
+	UE_LOG( LogTemp , Warning , TEXT( "%f: Firing from %s" ) , GetWorld()->GetTimeSeconds() , *GetName() )
 }
 
 void ATank::AimAt ( FVector Location ) const

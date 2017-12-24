@@ -15,6 +15,15 @@ class BATTLETANK_API ATank : public APawn
 {
 	GENERATED_BODY()
 
+		
+protected:
+	// Called when the game starts or when spawned
+	virtual void BeginPlay () override ;
+
+public:	
+	// Called to bind functionality to input
+	virtual void SetupPlayerInputComponent ( class UInputComponent* PlayerInputComponent ) override ;
+
 public:
 	// Sets default values for this pawn's properties
 	ATank () ;
@@ -25,20 +34,17 @@ public:
 	UFUNCTION( BlueprintCallable )
 	void SetTurretReference ( UTankTurret *TurretToSet ) ;
 	
+	UFUNCTION( BlueprintCallable )
+	void Fire () const ;
+	
+	void AimAt ( FVector Location ) const ;
+
 protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay () override ;
 
 	UTankAimingComponent *TankAimingComponent = nullptr ;
-
-public:	
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent ( class UInputComponent* PlayerInputComponent ) override ;
-
-	void AimAt ( FVector Location ) const ;
 
 private:
 
 	UPROPERTY( EditAnywhere , Category = Firing )
-	float LaunchSpeed = 100000.f ;			// TODO find sensible default value
+	float LaunchSpeed = 4000.f ;
 };
