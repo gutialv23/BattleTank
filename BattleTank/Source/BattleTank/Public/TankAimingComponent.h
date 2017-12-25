@@ -12,24 +12,24 @@ class UTankTurret ;
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class BATTLETANK_API UTankAimingComponent : public UActorComponent
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
 
 public:	
-	// Sets default values for this component's properties
-	UTankAimingComponent () ;
-	
+    // Sets default values for this component's properties
+    UTankAimingComponent () ;
+    
 public:	
-	void SetBarrelReference ( UTankBarrel *BarrelToSet ) ;
-	void SetTurretReference ( UTankTurret *TurretToSet ) ;
+    void SetBarrelReference ( UTankBarrel *BarrelToSet ) ;
+    void SetTurretReference ( UTankTurret *TurretToSet ) ;
 
-	void AimAt ( FVector Location , float LaunchSpeed ) ;
-
-private:
-	void MoveBarrelTowards ( FVector AimDirection ) ;
+    void AimAt ( FVector Location , float LaunchSpeed ) ;
 
 private:
-	UTankBarrel *Barrel = nullptr ;
-	UTankTurret *Turret = nullptr ;
+    void MoveBarrelTowards ( FVector AimDirection ) ;
 
-	
+private:
+    UTankBarrel *Barrel = nullptr ;
+    UTankTurret *Turret = nullptr ;
+
+    
 };

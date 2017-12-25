@@ -9,51 +9,51 @@
 // Sets default values for this component's properties
 UTankAimingComponent::UTankAimingComponent ()
 {
-	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
-	// off to improve performance if you don't need them.
-	PrimaryComponentTick.bCanEverTick = false;
+    // Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
+    // off to improve performance if you don't need them.
+    PrimaryComponentTick.bCanEverTick = false;
 
-	// ...
+    // ...
 }
 
 void UTankAimingComponent::SetBarrelReference ( UTankBarrel *BarrelToSet )
 {
-	Barrel = BarrelToSet ;
+    Barrel = BarrelToSet ;
 }
 
 void UTankAimingComponent::SetTurretReference ( UTankTurret *TurretToSet )
 {
-	Turret = TurretToSet ;
+    Turret = TurretToSet ;
 }
 
 void UTankAimingComponent::AimAt ( FVector HitLocation , float LaunchSpeed )
 {
-	if ( !Barrel || !Turret ) { return ; }
+    if ( !Barrel || !Turret ) { return ; }
 
-	FVector OutLaunchVelocity ;
+    FVector OutLaunchVelocity ;
 
-	bool bHaveAimSolution = UGameplayStatics::SuggestProjectileVelocity( this ,
-													OutLaunchVelocity ,
-													Barrel->GetSocketLocation( FName( "Projectile" ) ) ,
-													HitLocation ,
-													LaunchSpeed ,
-													false , 0 , 0 , 
-													ESuggestProjVelocityTraceOption::DoNotTrace ) ;
+    bool bHaveAimSolution = UGameplayStatics::SuggestProjectileVelocity( this ,
+                                                    OutLaunchVelocity ,
+                                                    Barrel->GetSocketLocation( FName( "Projectile" ) ) ,
+                                                    HitLocation ,
+                                                    LaunchSpeed ,
+                                                    false , 0 , 0 , 
+                                                    ESuggestProjVelocityTraceOption::DoNotTrace ) ;
 
-	if ( bHaveAimSolution )
-	{
-		FVector AimDirection = OutLaunchVelocity.GetSafeNormal() ;
+    if ( bHaveAimSolution )
+    {
+        FVector AimDirection = OutLaunchVelocity.GetSafeNormal() ;
 
-		MoveBarrelTowards( AimDirection ) ;
-	}
+        MoveBarrelTowards( AimDirection ) ;
+    }
 }
 
 void UTankAimingComponent::MoveBarrelTowards ( FVector AimDirection )
 {
-	FRotator BarrelRotator = Barrel->GetForwardVector().Rotation() ;
-	FRotator AimAsRotator = AimDirection.Rotation() ;
-	FRotator DeltaRotator = AimAsRotator - BarrelRotator ;
+    FRotator BarrelRotator = Barrel->GetForwardVector().Rotation() ;
+    FRotator AimAsRotator = AimDirection.Rotation() ;
+    FRotator DeltaRotator = AimAsRotator - BarrelRotator ;
 
-	Barrel->Elevate( DeltaRotator.Pitch ) ;
-	Turret->Rotate ( DeltaRotator.Yaw   ) ;
+    Barrel->Elevate( DeltaRotator.Pitch ) ;
+    Turret->Rotate ( DeltaRotator.Yaw   ) ;
 }

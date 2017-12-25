@@ -9,42 +9,49 @@
 class UTankAimingComponent ;
 class UTankBarrel ;
 class UTankTurret ;
+class AProjectile ;
 
 UCLASS()
 class BATTLETANK_API ATank : public APawn
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
 
-		
+        
 protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay () override ;
+    // Called when the game starts or when spawned
+    virtual void BeginPlay () override ;
 
 public:	
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent ( class UInputComponent* PlayerInputComponent ) override ;
+    // Called to bind functionality to input
+    virtual void SetupPlayerInputComponent ( class UInputComponent* PlayerInputComponent ) override ;
 
 public:
-	// Sets default values for this pawn's properties
-	ATank () ;
+    // Sets default values for this pawn's properties
+    ATank () ;
 
-	UFUNCTION( BlueprintCallable )
-	void SetBarrelReference ( UTankBarrel *BarrelToSet ) ;
-	
-	UFUNCTION( BlueprintCallable )
-	void SetTurretReference ( UTankTurret *TurretToSet ) ;
-	
-	UFUNCTION( BlueprintCallable )
-	void Fire () const ;
-	
-	void AimAt ( FVector Location ) const ;
+    UFUNCTION( BlueprintCallable )
+    void SetBarrelReference ( UTankBarrel *BarrelToSet ) ;
+    
+    UFUNCTION( BlueprintCallable )
+    void SetTurretReference ( UTankTurret *TurretToSet ) ;
+    
+    UFUNCTION( BlueprintCallable )
+    void Fire () const ;
+    
+    void AimAt ( FVector Location ) const ;
 
 protected:
 
-	UTankAimingComponent *TankAimingComponent = nullptr ;
+    UTankAimingComponent *TankAimingComponent = nullptr ;
 
 private:
 
-	UPROPERTY( EditAnywhere , Category = Firing )
-	float LaunchSpeed = 4000.f ;
+    UPROPERTY( EditAnywhere , Category = Firing )
+    float LaunchSpeed = 4000.f ;
+
+    UPROPERTY( EditAnywhere , Category = Setup )
+    TSubclassOf< AProjectile > ProjectileBlueprint ;
+
+    // Local reference to the barrel to spawn projectiles
+    UTankBarrel* Barrel = nullptr ;
 };

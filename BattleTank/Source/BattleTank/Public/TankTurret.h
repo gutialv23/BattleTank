@@ -11,14 +11,14 @@
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class BATTLETANK_API UTankTurret : public UStaticMeshComponent
 {
-	GENERATED_BODY()
-	
+    GENERATED_BODY()
+    
 public:
-	/* RelativeSpeed: +1 indicates max upward speed, -1 indicates max downward speed */
-	void Rotate ( float RelativeSpeed ) ;
+    /* RelativeSpeed: +1 indicates max upward speed, -1 indicates max downward speed */
+    void Rotate ( float RelativeSpeed ) ;
 
 private:
-	UPROPERTY( EditAnywhere , Category = Setup )
-	float MaxDegreesPerSecond = 20.f ;
-	
+    UPROPERTY( EditAnywhere , Category = Setup )
+    float MaxDegreesPerSecond = 20.f ;
+    
 };
