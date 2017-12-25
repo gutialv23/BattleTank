@@ -42,7 +42,7 @@ public:
 
 protected:
 
-    UTankAimingComponent *TankAimingComponent = nullptr ;
+    UTankAimingComponent* TankAimingComponent = nullptr ;
 
 private:
 
