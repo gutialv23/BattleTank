@@ -44,7 +44,7 @@ void ATank::SetTurretReference ( UTankTurret *TurretToSet )
 
 void ATank::Fire ()
 {
-    bool isReloaded = true ;
+    bool isReloaded = ( GetWorld()->GetTimeSeconds() - LastFireTime ) > ReloadTimeInSeconds ;
 
     if ( !Barrel || !ProjectileBlueprint || !isReloaded ) return ;
 
