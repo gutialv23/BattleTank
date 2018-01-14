@@ -36,9 +36,9 @@ public:
     void SetTurretReference ( UTankTurret *TurretToSet ) ;
     
     UFUNCTION( BlueprintCallable )
-    void Fire () const ;
+    void Fire () ;
     
-    void AimAt ( FVector Location ) const ;
+    void AimAt ( const FVector Location ) const ;
 
 protected:
 
@@ -46,12 +46,17 @@ protected:
 
 private:
 
-    UPROPERTY( EditAnywhere , Category = Firing )
-    float LaunchSpeed = 4000.f ;
-
-    UPROPERTY( EditAnywhere , Category = Setup )
+    UPROPERTY( EditDefaultsOnly , Category = Setup )
     TSubclassOf< AProjectile > ProjectileBlueprint ;
+
+    UPROPERTY( EditDefaultsOnly , Category = Firing )
+    float LaunchSpeed = 4000.f ;
+    
+    UPROPERTY( EditDefaultsOnly , Category = Firing )
+    float ReloadTimeInSeconds = 3.f ;
 
     // Local reference to the barrel to spawn projectiles
     UTankBarrel* Barrel = nullptr ;
+
+    float LastFireTime = 0.f ; 
 };

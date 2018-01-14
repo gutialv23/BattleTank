@@ -26,10 +26,10 @@ void UTankAimingComponent::SetTurretReference ( UTankTurret *TurretToSet )
     Turret = TurretToSet ;
 }
 
-void UTankAimingComponent::AimAt ( FVector HitLocation , float LaunchSpeed )
+void UTankAimingComponent::AimAt ( const FVector HitLocation , const float LaunchSpeed )
 {
     if ( !Barrel || !Turret ) { return ; }
-
+    
     FVector OutLaunchVelocity ;
 
     bool bHaveAimSolution = UGameplayStatics::SuggestProjectileVelocity( this ,

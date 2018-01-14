@@ -22,7 +22,7 @@ public:
     void SetBarrelReference ( UTankBarrel *BarrelToSet ) ;
     void SetTurretReference ( UTankTurret *TurretToSet ) ;
 
-    void AimAt ( FVector Location , float LaunchSpeed ) ;
+    void AimAt ( const FVector Location , const float LaunchSpeed ) ;
 
 private:
     void MoveBarrelTowards ( FVector AimDirection ) ;
