@@ -6,7 +6,8 @@
 #include "Tank.generated.h"
 
 // Forward declarations
-class UTankAimingComponent ;
+class UTankAimingComponent   ;
+class UTankMovementComponent ;
 class UTankBarrel ;
 class UTankTurret ;
 class AProjectile ;
@@ -41,8 +42,11 @@ public:
     void AimAt ( const FVector Location ) const ;
 
 protected:
-
-    UTankAimingComponent* TankAimingComponent = nullptr ;
+    
+    UPROPERTY( BlueprintReadOnly )
+    UTankMovementComponent* TankMovementComponent = nullptr ;
+    
+    UTankAimingComponent*   TankAimingComponent   = nullptr ;
 
 private:
 
