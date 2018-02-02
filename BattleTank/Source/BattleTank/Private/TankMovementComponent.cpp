@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright (C) - Alvaro Garcia Gutierrez
 
 #include "BattleTank.h"
 #include "TankTrack.h"
@@ -42,9 +42,11 @@ void UTankMovementComponent::RequestDirectMove ( const FVector& MoveVelocity , b
     auto TankForward = GetOwner()->GetActorForwardVector().GetSafeNormal() ;
     auto AIForwardIntention = MoveVelocity.GetSafeNormal() ;
 
-    auto Throw = FVector::DotProduct( TankForward , AIForwardIntention ) ;
+    auto ForwardThrow   = FVector::  DotProduct( TankForward , AIForwardIntention )   ;
+    auto ClockwiseThrow = FVector::CrossProduct( TankForward , AIForwardIntention ).Z ;
 
-    IntendMoveForward( Throw ) ;
+    IntendMoveForward  (   ForwardThrow ) ;
+    IntendMoveClockwise( ClockwiseThrow ) ;
 
-    UE_LOG( LogTemp , Warning , TEXT("%s vectoring to %s") , *GetOwner()->GetName() , *MoveVelocity.GetSafeNormal().ToString() )
+    UE_LOG( LogTemp , Warning , TEXT("Right: %f, Forward: %f") , ClockwiseThrow , ForwardThrow )
 }

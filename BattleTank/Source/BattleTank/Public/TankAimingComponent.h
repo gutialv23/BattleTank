@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright (C) - Alvaro Garcia Gutierrez
 
 #pragma once
 

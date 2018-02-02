@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright (C) - Alvaro Garcia Gutierrez
 
 #pragma once
 
@@ -17,19 +17,19 @@ class BATTLETANK_API UTankMovementComponent : public UNavMovementComponent
     
 public:
     
-    UFUNCTION( BlueprintCallable , Category = Setup )
+    UFUNCTION( BlueprintCallable , Category = "Setup" )
     void Initialise ( UTankTrack* LeftTrackToSet , UTankTrack* RightTrackToSet ) ;
 
-    UFUNCTION( BlueprintCallable , Category = Input )
+    UFUNCTION( BlueprintCallable , Category = "Input" )
     void IntendMoveForward ( float Throw ) ;
     
-    UFUNCTION( BlueprintCallable , Category = Input )
+    UFUNCTION( BlueprintCallable , Category = "Input" )
     void IntendMoveClockwise ( float Throw ) ;
-
-    // TODO check correct protection level
-    virtual void RequestDirectMove ( const FVector& MoveVelocity , bool bForceMaxSpeed ) final override ;
-
+    
 private:
+
+    // Called from the pathfinding logic by the AI controllers
+    virtual void RequestDirectMove ( const FVector& MoveVelocity , bool bForceMaxSpeed ) final override ;
 
     UTankTrack* LeftTrack  = nullptr ;
     UTankTrack* RightTrack = nullptr ;
