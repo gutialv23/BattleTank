@@ -39,5 +39,12 @@ void UTankMovementComponent::RequestDirectMove ( const FVector& MoveVelocity , b
 {
     // No need to call Super as we're replacing the functionality
 
-    UE_LOG( LogTemp , Warning , TEXT("%s vectoring to %s") , *GetOwner()->GetName() , *MoveVelocity.ToString() )
+    auto TankForward = GetOwner()->GetActorForwardVector().GetSafeNormal() ;
+    auto AIForwardIntention = MoveVelocity.GetSafeNormal() ;
+
+    auto Throw = FVector::DotProduct( TankForward , AIForwardIntention ) ;
+
+    IntendMoveForward( Throw ) ;
+
+    UE_LOG( LogTemp , Warning , TEXT("%s vectoring to %s") , *GetOwner()->GetName() , *MoveVelocity.GetSafeNormal().ToString() )
 }
