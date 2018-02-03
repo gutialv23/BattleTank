@@ -19,9 +19,6 @@ void UTankMovementComponent::IntendMoveForward ( float Throw )
 
     LeftTrack ->SetThrottle( Throw ) ;
     RightTrack->SetThrottle( Throw ) ;
-
-    // TODO prevent double-speed due to dual control use
-    
 }
 
 void UTankMovementComponent::IntendMoveClockwise ( float Throw )
@@ -30,9 +27,6 @@ void UTankMovementComponent::IntendMoveClockwise ( float Throw )
 
     LeftTrack ->SetThrottle(  Throw ) ; 
     RightTrack->SetThrottle( -Throw ) ;
-    
-    // TODO prevent double-speed due to dual control use
-    
 }
 
 void UTankMovementComponent::RequestDirectMove ( const FVector& MoveVelocity , bool bForceMaxSpeed )
@@ -47,6 +41,4 @@ void UTankMovementComponent::RequestDirectMove ( const FVector& MoveVelocity , b
 
     IntendMoveForward  (   ForwardThrow ) ;
     IntendMoveClockwise( ClockwiseThrow ) ;
-
-    UE_LOG( LogTemp , Warning , TEXT("Right: %f, Forward: %f") , ClockwiseThrow , ForwardThrow )
 }
