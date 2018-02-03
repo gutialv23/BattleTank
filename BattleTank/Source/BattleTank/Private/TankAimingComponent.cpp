@@ -22,11 +22,11 @@ void UTankAimingComponent::BeginPlay ()
 
 void UTankAimingComponent::TickComponent ( float DeltaTime , enum ELevelTick TickType , FActorComponentTickFunction* ThisTickFunction )
 {
-    UE_LOG( LogTemp , Warning , TEXT( "Ticking!!" ) )
     bool isReloaded = ( GetWorld()->GetTimeSeconds() - LastFireTime ) > ReloadTimeInSeconds ;
 
-    if ( !isReloaded ) FiringStatus = EFiringStatus::Reloading ;
-    else               FiringStatus = EFiringStatus::Aiming    ;
+         if ( !isReloaded      ) FiringStatus = EFiringStatus::Reloading ;
+    else if ( IsBarrelMoving() ) FiringStatus = EFiringStatus::Aiming    ;
+    else                         FiringStatus = EFiringStatus::Locked    ;
 }
 
 void UTankAimingComponent::Initialise ( UTankBarrel* BarrelToSet , UTankTurret* TurretToSet )
@@ -51,7 +51,7 @@ void UTankAimingComponent::AimAt ( const FVector HitLocation )
 
     if ( bHaveAimSolution )
     {
-        FVector AimDirection = OutLaunchVelocity.GetSafeNormal() ;
+        AimDirection = OutLaunchVelocity.GetSafeNormal() ;
 
         MoveBarrelTowards( AimDirection ) ;
     }
@@ -72,14 +72,21 @@ void UTankAimingComponent::Fire ()
     }
 }
 
-void UTankAimingComponent::MoveBarrelTowards ( FVector AimDirection )
+void UTankAimingComponent::MoveBarrelTowards ( FVector AimDir )
 {
     if ( !Barrel || !Turret ) return ;
 
     FRotator BarrelRotator = Barrel->GetForwardVector().Rotation() ;
-    FRotator AimAsRotator = AimDirection.Rotation() ;
+    FRotator AimAsRotator = AimDir.Rotation() ;
     FRotator DeltaRotator = AimAsRotator - BarrelRotator ;
 
     Barrel->Elevate( DeltaRotator.Pitch ) ;
     Turret->Rotate ( DeltaRotator.Yaw   ) ;
+}
+
+bool UTankAimingComponent::IsBarrelMoving ()
+{
+    if ( !Barrel ) return false ;
+
+    return !AimDirection.Equals( Barrel->GetForwardVector() , 0.01f ) ;
 }
