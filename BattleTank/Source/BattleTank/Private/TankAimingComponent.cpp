@@ -12,9 +12,21 @@ UTankAimingComponent::UTankAimingComponent ()
 {
     // Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
     // off to improve performance if you don't need them.
-    PrimaryComponentTick.bCanEverTick = false;
+    PrimaryComponentTick.bCanEverTick = true;
+}
 
-    // ...
+void UTankAimingComponent::BeginPlay ()
+{
+    LastFireTime = GetWorld()->GetTimeSeconds() ;
+}
+
+void UTankAimingComponent::TickComponent ( float DeltaTime , enum ELevelTick TickType , FActorComponentTickFunction* ThisTickFunction )
+{
+    UE_LOG( LogTemp , Warning , TEXT( "Ticking!!" ) )
+    bool isReloaded = ( GetWorld()->GetTimeSeconds() - LastFireTime ) > ReloadTimeInSeconds ;
+
+    if ( !isReloaded ) FiringStatus = EFiringStatus::Reloading ;
+    else               FiringStatus = EFiringStatus::Aiming    ;
 }
 
 void UTankAimingComponent::Initialise ( UTankBarrel* BarrelToSet , UTankTurret* TurretToSet )
@@ -47,16 +59,17 @@ void UTankAimingComponent::AimAt ( const FVector HitLocation )
 
 void UTankAimingComponent::Fire ()
 {
-    bool isReloaded = ( GetWorld()->GetTimeSeconds() - LastFireTime ) > ReloadTimeInSeconds ;
+    if ( !Barrel || !ProjectileBlueprint ) return ;
 
-    if ( !Barrel || !ProjectileBlueprint || !isReloaded ) return ;
+    if ( FiringStatus != EFiringStatus::Reloading )
+    {
+        auto Projectile = GetWorld()->SpawnActor< AProjectile >( ProjectileBlueprint 
+                                                               , Barrel->GetSocketLocation( FName( "Projectile" ) ) 
+                                                               , Barrel->GetSocketRotation( FName( "Projectile" ) ) ) ;
 
-    auto Projectile = GetWorld()->SpawnActor< AProjectile >( ProjectileBlueprint 
-                                                           , Barrel->GetSocketLocation( FName( "Projectile" ) ) 
-                                                           , Barrel->GetSocketRotation( FName( "Projectile" ) ) ) ;
-
-    Projectile->LaunchProjectile( LaunchSpeed ) ;
-    LastFireTime = GetWorld()->GetTimeSeconds() ;
+        Projectile->LaunchProjectile( LaunchSpeed ) ;
+        LastFireTime = GetWorld()->GetTimeSeconds() ;
+    }
 }
 
 void UTankAimingComponent::MoveBarrelTowards ( FVector AimDirection )
