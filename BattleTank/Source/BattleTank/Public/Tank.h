@@ -29,11 +29,6 @@ public:
     
     void AimAt ( const FVector Location ) const ;
 
-protected:
-    
-    UPROPERTY( BlueprintReadOnly )
-    UTankAimingComponent* TankAimingComponent = nullptr ;
-
 private:
 
     UPROPERTY( EditDefaultsOnly , Category = "Setup" )
@@ -47,6 +42,8 @@ private:
 
     // Local reference to the barrel to spawn projectiles
     UTankBarrel* Barrel = nullptr ;                         // TODO remove
+    
+    UTankAimingComponent* TankAimingComponent = nullptr ;
 
     float LastFireTime = 0.f ; 
 };

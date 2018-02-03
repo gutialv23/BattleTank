@@ -45,9 +45,8 @@ void ATank::Fire ()
 
 void ATank::AimAt ( const FVector Location ) const
 {
-    if ( TankAimingComponent )
-    {
-        TankAimingComponent->AimAt( Location , LaunchSpeed ) ;
-    }
+    if ( !TankAimingComponent ) return ;
+
+    TankAimingComponent->AimAt( Location , LaunchSpeed ) ;
 }
 
