@@ -6,10 +6,10 @@
 #include "TankAIController.generated.h"
 
 // Forward declarations
-class ATank;
+class UTankAimingComponent;
 
 /**
- * 
+ * Responsible for helping the AI tanks aim.
  */
 
 UCLASS()

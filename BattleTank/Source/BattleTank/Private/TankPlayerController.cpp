@@ -1,7 +1,7 @@
 // Copyright (C) - Alvaro Garcia Gutierrez
 
 #include "BattleTank.h"
-#include "Tank.h"
+#include "TankAimingComponent.h"
 #include "TankPlayerController.h"
 
 
@@ -17,30 +17,24 @@ void ATankPlayerController::Tick ( float DeltaTime )
     AimTowardsCrosshair() ;
 }
 
-
-ATank* ATankPlayerController::GetControlledTank () const
-{
-    return Cast< ATank >( GetPawn() ) ;
-}
-
-
 void ATankPlayerController::AimTowardsCrosshair ()
 {
-    if ( GetControlledTank() == nullptr ) { return ; }
+    auto TankAimingComponent = GetPawn()->FindComponentByClass< UTankAimingComponent >() ;
+
+    if ( TankAimingComponent == nullptr ) { return ; }
 
     FVector HitLocation ; // Out parameter
 
     if ( GetSightRayHitLocation( HitLocation ) )
     {
         // Move the turret to the place where we should hit
-        GetControlledTank()->AimAt( HitLocation ) ;
+        TankAimingComponent->AimAt( HitLocation ) ;
     }
 }
 
 bool ATankPlayerController::GetSightRayHitLocation ( FVector& OutHitLocation ) const
 {
     FHitResult Hit ;
-    
 
     // Viewport Size
     int32 ViewportSizeX , ViewportSizeY ; 

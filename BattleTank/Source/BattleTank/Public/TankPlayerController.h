@@ -6,10 +6,10 @@
 #include "TankPlayerController.generated.h"
 
 // Forward declarations
-class ATank;
+class UTankAimingComponent ;
 
 /**
- * 
+ * Responsible for helping the player aim.
  */
 UCLASS()
 class BATTLETANK_API ATankPlayerController : public APlayerController
@@ -22,13 +22,6 @@ public:
 
     // Called every frame
     virtual void Tick(float DeltaTime) override ;
-
-
-protected:
-    
-    /*	Returns our controlled Tank if found */
-    UFUNCTION( BlueprintCallable , Category = "Setup" )
-    ATank *GetControlledTank() const ;
 
 private:
 
