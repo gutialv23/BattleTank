@@ -19,6 +19,10 @@ class BATTLETANK_API UTankAimingComponent : public UActorComponent
 {
     GENERATED_BODY()
 
+public:
+    // Sets default values for this component's properties
+    UTankAimingComponent () ;
+
 protected:
     // Called when the game starts
     virtual void BeginPlay () override ;
@@ -27,9 +31,6 @@ protected:
     virtual void TickComponent ( float DeltaTime , enum ELevelTick TickType , FActorComponentTickFunction* ThisTickFunction ) override ;
     
 public:
-    // Sets default values for this component's properties
-    UTankAimingComponent () ;
-
     UFUNCTION( BlueprintCallable , Category = "Setup" )
     void Initialise ( UTankBarrel* BarrelToSet , UTankTurret* TurretToSet ) ;
 

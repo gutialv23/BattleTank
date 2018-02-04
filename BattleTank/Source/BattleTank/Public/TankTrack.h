@@ -11,9 +11,21 @@
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class BATTLETANK_API UTankTrack : public UStaticMeshComponent
 {
-	GENERATED_BODY()
-	
-	
+    GENERATED_BODY()
+
+public:
+    UTankTrack() ;
+
+private:
+    // Called when the game starts
+    virtual void BeginPlay () override ;
+
+    // Called every tick
+    virtual void TickComponent ( float DeltaTime , enum ELevelTick TickType , FActorComponentTickFunction* ThisTickFunction ) override ;
+
+    UFUNCTION()
+    void OnHit( UPrimitiveComponent* HitComponent , AActor* OtherActor , UPrimitiveComponent* OtherComponent , FVector NormalImpulse , const FHitResult& Hit ) ;
+
 public:
 
     // Sets a throttle between -1 and +1
