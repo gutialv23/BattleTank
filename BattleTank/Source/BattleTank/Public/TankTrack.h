@@ -20,11 +20,12 @@ private:
     // Called when the game starts
     virtual void BeginPlay () override ;
 
-    // Called every tick
-    virtual void TickComponent ( float DeltaTime , enum ELevelTick TickType , FActorComponentTickFunction* ThisTickFunction ) override ;
-
     UFUNCTION()
     void OnHit( UPrimitiveComponent* HitComponent , AActor* OtherActor , UPrimitiveComponent* OtherComponent , FVector NormalImpulse , const FHitResult& Hit ) ;
+    
+    void DriveTrack () ;
+
+    void ApplySidewaysForce () ;
 
 public:
 
@@ -35,5 +36,9 @@ public:
     // Max force per track (in Newtons)
     UPROPERTY( EditDefaultsOnly , Category = "Setup" )
     float TrackMaxDrivingForce = 400000.f ;         // <- NOTE: Assuming 40 tonne tank and 1g acceleration.
+
+private:
+
+    float CurrentThrottle = 0.f ;
 
 };
