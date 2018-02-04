@@ -35,6 +35,11 @@ void UTankAimingComponent::Initialise ( UTankBarrel* BarrelToSet , UTankTurret* 
     Turret = TurretToSet ;
 }
 
+EFiringStatus UTankAimingComponent::GetFiringStatus() const
+{
+    return FiringStatus ;
+}
+
 void UTankAimingComponent::AimAt ( const FVector HitLocation )
 {
     if ( !Barrel || !Turret ) return ;
@@ -81,10 +86,12 @@ void UTankAimingComponent::MoveBarrelTowards ( FVector AimDir )
     FRotator DeltaRotator = AimAsRotator - BarrelRotator ;
 
     Barrel->Elevate( DeltaRotator.Pitch ) ;
-    Turret->Rotate ( DeltaRotator.Yaw   ) ;
+
+    if ( FMath::Abs( DeltaRotator.Yaw ) > 180.f ) Turret->Rotate( - DeltaRotator.Yaw ) ;
+    else                                          Turret->Rotate(   DeltaRotator.Yaw ) ;
 }
 
-bool UTankAimingComponent::IsBarrelMoving ()
+bool UTankAimingComponent::IsBarrelMoving () const 
 {
     if ( !Barrel ) return false ;
 

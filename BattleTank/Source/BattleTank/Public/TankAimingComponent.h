@@ -33,9 +33,11 @@ protected:
 public:
     UFUNCTION( BlueprintCallable , Category = "Setup" )
     void Initialise ( UTankBarrel* BarrelToSet , UTankTurret* TurretToSet ) ;
+    
+    EFiringStatus GetFiringStatus () const ;
 
     void AimAt ( const FVector Location ) ;
-    
+
     UFUNCTION( BlueprintCallable , Category = "Firing" )
     void Fire () ;
 
@@ -47,7 +49,7 @@ protected:
 private:
     void MoveBarrelTowards ( FVector AimDirection ) ;
 
-    bool IsBarrelMoving () ;
+    bool IsBarrelMoving () const ;
 
     UTankBarrel *Barrel = nullptr ;
     UTankTurret *Turret = nullptr ;
