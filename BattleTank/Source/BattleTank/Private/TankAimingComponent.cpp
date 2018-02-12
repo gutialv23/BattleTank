@@ -24,7 +24,8 @@ void UTankAimingComponent::TickComponent ( float DeltaTime , enum ELevelTick Tic
 {
     bool isReloaded = ( GetWorld()->GetTimeSeconds() - LastFireTime ) > ReloadTimeInSeconds ;
 
-         if ( !isReloaded      ) FiringStatus = EFiringStatus::Reloading ;
+         if ( Ammo <= 0        ) FiringStatus = EFiringStatus::OutOfAmmo ;
+    else if ( !isReloaded      ) FiringStatus = EFiringStatus::Reloading ;
     else if ( IsBarrelMoving() ) FiringStatus = EFiringStatus::Aiming    ;
     else                         FiringStatus = EFiringStatus::Locked    ;
 }
@@ -66,7 +67,7 @@ void UTankAimingComponent::Fire ()
 {
     if ( !Barrel || !ProjectileBlueprint ) return ;
 
-    if ( FiringStatus != EFiringStatus::Reloading )
+    if ( FiringStatus == EFiringStatus::Aiming || FiringStatus == EFiringStatus::Locked )
     {
         auto Projectile = GetWorld()->SpawnActor< AProjectile >( ProjectileBlueprint 
                                                                , Barrel->GetSocketLocation( FName( "Projectile" ) ) 
@@ -74,6 +75,8 @@ void UTankAimingComponent::Fire ()
 
         Projectile->LaunchProjectile( LaunchSpeed ) ;
         LastFireTime = GetWorld()->GetTimeSeconds() ;
+
+        Ammo -- ;
     }
 }
 

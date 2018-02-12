@@ -7,7 +7,7 @@
 
 // Enum for aiming state
 UENUM()
-enum class EFiringStatus : uint8 { Reloading , Aiming , Locked };
+enum class EFiringStatus : uint8 { Reloading , Aiming , Locked , OutOfAmmo };
 
 // Forward declarations
 class UTankBarrel ;
@@ -45,6 +45,9 @@ protected:
 
     UPROPERTY( BlueprintReadOnly , Category = "State" )
     EFiringStatus FiringStatus = EFiringStatus::Reloading ;
+
+    UPROPERTY( BlueprintReadOnly , Category = "Firing" )
+    int Ammo = 3 ;
 
 private:
     void MoveBarrelTowards ( FVector AimDirection ) ;
