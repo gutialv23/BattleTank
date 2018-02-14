@@ -46,8 +46,8 @@ protected:
     UPROPERTY( BlueprintReadOnly , Category = "State" )
     EFiringStatus FiringStatus = EFiringStatus::Reloading ;
 
-    UPROPERTY( BlueprintReadOnly , Category = "Firing" )
-    int Ammo = 3 ;
+    UPROPERTY( EditDefaultsOnly , BlueprintReadOnly , Category = "Firing" )
+    int32 Ammo = 3 ;
 
 private:
     void MoveBarrelTowards ( FVector AimDirection ) ;
